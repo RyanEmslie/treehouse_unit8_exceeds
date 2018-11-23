@@ -1,7 +1,7 @@
 # treehouse_unit8_exceeds
 
 
-As a developer, I should be able to run the npm install command to install all of the dependencies for the build process.
+<!-- As a developer, I should be able to run the npm install command to install all of the dependencies for the build process. -->
 
 As a developer, I should be able to run the gulp scripts command at the command line to concatenate, minify, and copy all of the project’s JavaScript files into an all.min.js file that is then copied to the dist/scripts folder.
 
