@@ -23,7 +23,7 @@ gulp.task('scripts', () => {
         .pipe(maps.write('./'))
         .pipe(rename('all.min.js'))
         //destination directory
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest('dist/scripts'));
 });
 
 //minify the app.js file after it has been created in the concat
@@ -44,7 +44,7 @@ gulp.task('styles', () => {
                 .pipe(minifyCss() )
                 .pipe(maps.write('./') )
                 .pipe(rename('all.min.css'))
-                .pipe(gulp.dest('dist/css') );
+                .pipe(gulp.dest('dist/styles') );
 });
 
 gulp.task('watchSass', () => {
