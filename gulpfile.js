@@ -10,7 +10,8 @@ const gulp = require("gulp"),
   imagemin = require("gulp-imagemin"),
   del = require("del"),
   sequence = require("run-sequence"),
-  connect = require("gulp-connect");
+  connect = require("gulp-connect"),
+  browserSync = require('browser-sync').create();
 
 //Combines the three js files located in the /js and /js/circle folders in to /js/apps.js
 gulp.task("scripts", () => {
@@ -27,6 +28,16 @@ gulp.task("scripts", () => {
     .pipe(gulp.dest("dist/scripts"));
 });
 
+
+gulp.task('browser-sync', ['styles'], function() {
+  browserSync.init({
+      server: {
+          baseDir: "./"
+      }
+  });
+});
+
+
 //compliles all global.scss file
 gulp.task("styles", () => {
   return gulp
@@ -36,11 +47,15 @@ gulp.task("styles", () => {
     .pipe(minifyCss())
     .pipe(maps.write("./"))
     .pipe(rename("all.min.css"))
-    .pipe(gulp.dest("dist/styles"));
+    .pipe(gulp.dest("dist/styles"))
+    .pipe(browserSync.reload({stream: true}));
 });
 
+
+
 gulp.task("watchSass", () => {
-  gulp.watch("sass/**/*.scss", ["styles"]);
+  gulp.watch("sass/**/*.scss", ["styles"])
+  gulp.watch("*.html").on('change', browserSync.reload);
 });
 
 gulp.task("images", () => {
@@ -63,5 +78,5 @@ gulp.task("build", () => {
 });
 
 gulp.task("default", () => {
-  sequence(["build"], ["watchSass"],["connect"]);
+  sequence(["build"], ["watchSass"],["connect"],["browser-sync"]);
 });
